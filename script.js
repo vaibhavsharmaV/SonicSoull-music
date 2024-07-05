@@ -15,7 +15,7 @@ function secondsToMinutesSeconds(seconds) {
 
 async function getSongs() {
   let songs = [
-    "Alone - Alan Walker.mp3",
+    "Songs/Alone - Alan Walker - Copy.mp3,
     "Am I That Easy To Forget - Marty Robbins.mp3",
     "Darkside - Alan Walker.mp3",
     "Mr Lonely - Bobby Vinton.mp3",
