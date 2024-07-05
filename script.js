@@ -1,6 +1,4 @@
-console.log("Lets write some javascript");
-let currentSong = new Audio();
-let songs;
+
 
 function secondsToMinutesSeconds(seconds) {
   var minutes = Math.floor(seconds / 60);
