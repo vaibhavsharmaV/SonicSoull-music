@@ -14,8 +14,8 @@ function secondsToMinutesSeconds(seconds) {
 }
 
 async function getSongs() {
-  let Songs = [
-    "Songs/Alone - Alan Walker - Copy.mp3,
+  let songs = [
+    "Alone - Alan Walker - Copy.mp3",
     "Am I That Easy To Forget - Marty Robbins.mp3",
     "Darkside - Alan Walker.mp3",
     "Mr Lonely - Bobby Vinton.mp3",
@@ -23,16 +23,21 @@ async function getSongs() {
   ];
 
   // Format songs with correct relative paths for GitHub Pages
-  return Songs.map(song => `./Songs/${encodeURIComponent(song)}`);
+  return songs.map(song => `./Songs/${encodeURIComponent(song)}`);
 }
 
 const PlayMusic = (track) => {
+  console.log(`Attempting to play: ${track}`);
   currentSong.src = track;
-  currentSong.play();
-  play.src = "pause.svg";
-  const trackName = decodeURIComponent(track.substring(track.lastIndexOf('/') + 1));
-  document.querySelector(".songinfo").innerHTML = trackName;
-  document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
+  currentSong.play().then(() => {
+    play.src = "pause.svg";
+    const trackName = decodeURIComponent(track.substring(track.lastIndexOf('/') + 1));
+    document.querySelector(".songinfo").innerHTML = trackName;
+    document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
+    console.log(`Now playing: ${track}`);
+  }).catch(error => {
+    console.error(`Error playing track: ${track}`, error);
+  });
 }
 
 async function main() {
@@ -40,7 +45,7 @@ async function main() {
 
   let songUL = document.querySelector(".SongList").getElementsByTagName("ul")[0];
   for (const song of songs) {
-    let decodedSongName = decodeURIComponent(song.replace('./songs/', '').replaceAll('%20', ' '));
+    let decodedSongName = decodeURIComponent(song.replace('./Songs/', '').replaceAll('%20', ' '));
     songUL.innerHTML += `<li>
                           <img src="music.svg" alt="">
                           <div class="info">
@@ -57,10 +62,11 @@ async function main() {
   Array.from(document.querySelector(".SongList").getElementsByTagName("li")).forEach(e => {
     e.addEventListener("click", element => {
       let songPath = e.querySelector(".info").firstElementChild.textContent.trim();
-      PlayMusic(`./songs/${encodeURIComponent(songPath)}`);
+      PlayMusic(`./Songs/${encodeURIComponent(songPath)}`);
     });
   });
 
+  const play = document.querySelector("#play");
   play.addEventListener("click", () => {
     if (currentSong.paused) {
       currentSong.play();
@@ -83,6 +89,7 @@ async function main() {
     currentSong.currentTime = (currentSong.duration * percent) / 100;
   });
 
+  const previous = document.querySelector("#previous");
   previous.addEventListener("click", () => {
     let currentFileName = currentSong.src.split('/').pop();
     let index = songs.findIndex(song => song.includes(currentFileName));
@@ -91,6 +98,7 @@ async function main() {
     }
   });
 
+  const next = document.querySelector("#next");
   next.addEventListener("click", () => {
     let currentFileName = currentSong.src.split('/').pop();
     let index = songs.findIndex(song => song.includes(currentFileName));
@@ -105,6 +113,7 @@ async function main() {
 }
 
 main();
+
 
 // console.log("Lets write some javascript");
 // let currentSong = new Audio();
