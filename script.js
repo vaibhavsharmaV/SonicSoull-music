@@ -203,7 +203,7 @@ function secondsToMinutesSeconds(seconds) {
   return formattedMinutes + ':' + formattedSeconds;
 }
 
-async function getsongs(){
+async function getsongs() {
   let songs = [
     "/songs/Alone%20-%20Alan%20Walker.mp3",
     "/songs/Am%20I%20That%20Easy%20To%20Forget%20-%20Marty%20Robbins.mp3",
@@ -212,8 +212,8 @@ async function getsongs(){
     "/songs/Next%20To%20Me%20-%20Imagine%20Dragons.mp3"
   ];
 
-  // Format songs with file:///
-  return songs.map(song => `file:///D:/SonicSoull%20music%20player${song}`);
+  // Modify paths to relative URLs within your GitHub Pages repository
+  return songs.map(song => `./${song}`);
 }
 
 const PlayMusic = (track) => {
