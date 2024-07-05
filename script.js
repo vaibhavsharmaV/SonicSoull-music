@@ -14,7 +14,7 @@ function secondsToMinutesSeconds(seconds) {
 }
 
 async function getSongs() {
-  let songs = [
+  let Songs = [
     "Songs/Alone - Alan Walker - Copy.mp3,
     "Am I That Easy To Forget - Marty Robbins.mp3",
     "Darkside - Alan Walker.mp3",
@@ -23,7 +23,7 @@ async function getSongs() {
   ];
 
   // Format songs with correct relative paths for GitHub Pages
-  return songs.map(song => `./songs/${encodeURIComponent(song)}`);
+  return Songs.map(song => `./Songs/${encodeURIComponent(song)}`);
 }
 
 const PlayMusic = (track) => {
