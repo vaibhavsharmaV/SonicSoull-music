@@ -15,11 +15,11 @@ function secondsToMinutesSeconds(seconds) {
 
 async function getSongs() {
   let songs = [
-    "/songs/Alone%20-%20Alan%20Walker.mp3",
-    "/songs/Am%20I%20That%20Easy%20To%20Forget%20-%20Marty%20Robbins.mp3",
-    "/songs/Darkside%20-%20Alan%20Walker.mp3",
-    "/songs/Mr%20Lonely%20-%20Bobby%20Vinton.mp3",
-    "/songs/Next%20To%20Me%20-%20Imagine%20Dragons.mp3"
+    "Alone - Alan Walker.mp3",
+    "Am I That Easy To Forget - Marty Robbins.mp3",
+    "Darkside - Alan Walker.mp3",
+    "Mr Lonely - Bobby Vinton.mp3",
+    "Next To Me - Imagine Dragons.mp3"
   ];
 
   // Format songs with correct relative paths for GitHub Pages
