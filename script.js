@@ -1,6 +1,8 @@
-console.log("Lets write some javascript");
+console.log("Let's write some JavaScript");
+
 let currentSong = new Audio();
 let songs;
+
 function secondsToMinutesSeconds(seconds) {
   var minutes = Math.floor(seconds / 60);
   var remainingSeconds = Math.floor(seconds % 60);
@@ -11,7 +13,7 @@ function secondsToMinutesSeconds(seconds) {
   return formattedMinutes + ':' + formattedSeconds;
 }
 
-async function getsongs(){
+async function getSongs() {
   let songs = [
     "/songs/Alone%20-%20Alan%20Walker.mp3",
     "/songs/Am%20I%20That%20Easy%20To%20Forget%20-%20Marty%20Robbins.mp3",
@@ -20,44 +22,47 @@ async function getsongs(){
     "/songs/Next%20To%20Me%20-%20Imagine%20Dragons.mp3"
   ];
 
-  // Format songs with file:///
-  return songs.map(song => `file:///D:/SonicSoull%20music%20player${song}`);
+  // Format songs with correct relative paths for GitHub Pages
+  return songs.map(song => `./songs/${encodeURIComponent(song)}`);
 }
 
 const PlayMusic = (track) => {
   currentSong.src = track;
   currentSong.play();
   play.src = "pause.svg";
-  const trackName = track.substring(track.lastIndexOf('/') + 1);
-  document.querySelector(".songinfo").innerHTML = decodeURIComponent(trackName);
-
+  const trackName = decodeURIComponent(track.substring(track.lastIndexOf('/') + 1));
+  document.querySelector(".songinfo").innerHTML = trackName;
   document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
 }
 
 async function main() {
-  songs = await getsongs();
+  songs = await getSongs();
 
   let songUL = document.querySelector(".SongList").getElementsByTagName("ul")[0];
   for (const song of songs) {
-    songUL.innerHTML = songUL.innerHTML + `<li> <img src="music.svg" alt="">
-                      <div class="info">
-                       <div> ${decodeURIComponent(song.replace('file:///D:/SonicSoull%20music%20player/songs/', '').replaceAll('%20', ' '))} </div>
-                       <div>Vaibhav</div>
-                     </div>
-                        <div class="playnow">
-                         <span>Play Now</span>
-                    <img src="play.svg" alt="">
-                 </div> </li>`;
+    let decodedSongName = decodeURIComponent(song.replace('./songs/', '').replaceAll('%20', ' '));
+    songUL.innerHTML += `<li>
+                          <img src="music.svg" alt="">
+                          <div class="info">
+                            <div>${decodedSongName}</div>
+                            <div>Vaibhav</div>
+                          </div>
+                          <div class="playnow">
+                            <span>Play Now</span>
+                            <img src="play.svg" alt="">
+                          </div>
+                        </li>`;
   }
 
   Array.from(document.querySelector(".SongList").getElementsByTagName("li")).forEach(e => {
     e.addEventListener("click", element => {
-      PlayMusic(`file:///D:/SonicSoull%20music%20player/songs/${encodeURIComponent(e.querySelector(".info").firstElementChild.innerHTML.trim())}`);
+      let songPath = e.querySelector(".info").firstElementChild.textContent.trim();
+      PlayMusic(`./songs/${encodeURIComponent(songPath)}`);
     });
   });
 
   play.addEventListener("click", () => {
-    if(currentSong.paused){
+    if (currentSong.paused) {
       currentSong.play();
       play.src = "pause.svg";
     } else {
@@ -68,14 +73,14 @@ async function main() {
 
   currentSong.addEventListener("timeupdate", () => {
     document.querySelector(".songtime").innerHTML = 
-    `${secondsToMinutesSeconds(currentSong.currentTime)} / ${secondsToMinutesSeconds(currentSong.duration)}`;
+      `${secondsToMinutesSeconds(currentSong.currentTime)} / ${secondsToMinutesSeconds(currentSong.duration)}`;
     document.querySelector(".circle1").style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
   });
 
   document.querySelector(".seekbar").addEventListener("click", e => {
     let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100;
     document.querySelector(".circle1").style.left = percent + "%";
-    currentSong.currentTime = ((currentSong.duration) * percent) / 100;
+    currentSong.currentTime = (currentSong.duration * percent) / 100;
   });
 
   previous.addEventListener("click", () => {
@@ -100,6 +105,7 @@ async function main() {
 }
 
 main();
+
 // console.log("Lets write some javascript");
 // let currentSong = new Audio();
 // let songs;
