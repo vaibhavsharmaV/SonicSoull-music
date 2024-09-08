@@ -49,7 +49,7 @@
 }
 
 ::-webkit-scrollbar-track {
-    background: #333; /* Dark background color */
+    background: #333; 
 }
 
 ::-webkit-scrollbar-thumb {
@@ -60,7 +60,7 @@
 
 ::-webkit-scrollbar-thumb:hover {
     background-color: #888; /* Lighter color on hover */
-}
+} */
 
 /* Firefox Scrollbar */
 /* Note: Firefox currently does not support styling the scrollbar with CSS */
