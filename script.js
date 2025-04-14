@@ -166,7 +166,7 @@ let songs;
 document.addEventListener('DOMContentLoaded', function () {
   // Select the card element
   const card1 = document.getElementById('card1');
-  const card2 = document.getElementById('card2');
+  const card2 = document.getElementById('card2'); 
 
   // Add a click event listener
   card1.addEventListener('click', function () {

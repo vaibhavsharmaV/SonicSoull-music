@@ -17,7 +17,7 @@ body{
 }
 
 .left{
-    width: 25vw;
+    width: 30vw;
     padding: 10px;
 }
 
@@ -426,7 +426,7 @@ input[type=range] {
 }
  */
 
-@media (max-width: 1400px) {
+@media (width < 1200px) {
     .left{
         position: absolute;
         left: -100%;
